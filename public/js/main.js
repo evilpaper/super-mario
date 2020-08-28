@@ -11,6 +11,14 @@ function drawBackground(background, context, sprites) {
   });
 }
 
+function loadMarioSprite() {
+  return loadImage("./img/characters.gif").then((image) => {
+    const sprites = new SpriteSheet(image, 16, 16);
+    sprites.define("idle", 17, 3);
+    return sprites;
+  });
+}
+
 function loadBackgroundSprites() {
   return loadImage("./img/tiles.png").then((image) => {
     const sprites = new SpriteSheet(image, 16, 16);
@@ -23,10 +31,13 @@ function loadBackgroundSprites() {
 const canvas = document.getElementById("screen");
 const context = canvas.getContext("2d");
 
-Promise.all([loadBackgroundSprites(), loadLevel("1-1")]).then(
-  ([sprites, level]) => {
-    level.backgrounds.forEach((background) => {
-      drawBackground(background, context, sprites);
-    });
-  }
-);
+Promise.all([
+  loadMarioSprite(),
+  loadBackgroundSprites(),
+  loadLevel("1-1"),
+]).then(([marioSprite, sprites, level]) => {
+  level.backgrounds.forEach((background) => {
+    drawBackground(background, context, sprites);
+  });
+  marioSprite.draw("idle", context, 64, 64);
+});

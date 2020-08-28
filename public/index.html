@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Super Mario</title>
     <script type="module" src="./js/main.js"></script>
+    <style>
+      canvas {
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -webkit-crisp-edges;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+    </style>
   </head>
   <body>
     <canvas id="screen" width="640" height="640"></canvas>
